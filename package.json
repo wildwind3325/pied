@@ -1,7 +1,7 @@
 {
   "name": "pied",
   "version": "1.0.0",
-  "description": "pied",
+  "description": "3 in 1 Downloader for Pixiv + Inkbunny + Exhentai",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -16,7 +16,6 @@
   "author": "wildwind",
   "license": "Apache-2.0",
   "dependencies": {
-    "base64-stream": "^1.0.0",
     "carlo": "^0.9.34",
     "cheerio": "^1.0.0-rc.2",
     "memorystream": "^0.3.1",
