@@ -1,0 +1,25 @@
+{
+  "name": "pied",
+  "version": "1.0.0",
+  "description": "pied",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "bin": {
+    "pied": "./index.js"
+  },
+  "pkg": {
+    "scripts": "*.js",
+    "assets": "www/**/*"
+  },
+  "author": "wildwind",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "base64-stream": "^1.0.0",
+    "carlo": "^0.9.34",
+    "cheerio": "^1.0.0-rc.2",
+    "memorystream": "^0.3.1",
+    "request": "^2.88.0"
+  }
+}

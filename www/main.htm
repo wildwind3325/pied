@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>pied</title>
+    <link rel="stylesheet" href="weui.min.css" />
+    <style type="text/css">
+        .hl {
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="weui.min.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</head>
+
+<body onload="init();" style="background-color: #f8f8f8;">
+    <div class="weui-cells__title">
+        Pixiv Inkbunny Exhentai Downloader</div>
+    <div class="weui-flex">
+        <div class="weui-flex__item">
+            <div class="weui-cells__title">
+                Pixiv</div>
+            <div class="weui-cells">
+                <form id="pixiv">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                User Id</label></div>
+                        <div class="weui-cell__bd">
+                            <input name="userId" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Account</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="account" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Password</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="password" class="weui-input" type="password" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Save path</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="savePath" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Proxy</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="proxy" class="weui-input" type="text" placeholder="http://127.0.0.1:1080" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <span class="weui-btn weui-btn_mini weui-btn_primary hl" onclick="submitTask('pixiv');">Download</span>
+                            <span class="weui-btn weui-btn_mini weui-btn_warn hl" onclick="cancelTask('pixiv');">Cancel</span>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Progress</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <span id="pixivProgress">0 / 0</label>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea id="pixivConsole" class="weui-textarea" readonly rows="8" style="font-size: 12px;"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="weui-flex__item">
+            <div class="weui-cells__title">
+                Inkbunny</div>
+            <div class="weui-cells">
+                <form id="inkbunny">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                User Id</label></div>
+                        <div class="weui-cell__bd">
+                            <input name="userId" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Account</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="account" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Password</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="password" class="weui-input" type="password" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Save path</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="savePath" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Proxy</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="proxy" class="weui-input" type="text" placeholder="http://127.0.0.1:1080" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <span class="weui-btn weui-btn_mini weui-btn_primary hl" onclick="submitTask('inkbunny');">Download</span>
+                            <span class="weui-btn weui-btn_mini weui-btn_warn hl" onclick="cancelTask('inkbunny');">Cancel</span>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Progress</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <span id="inkbunnyProgress">0 / 0</label>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea id="inkbunnyConsole" class="weui-textarea" readonly rows="8" style="font-size: 12px;"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="weui-flex__item">
+            <div class="weui-cells__title">
+                Exhentai</div>
+            <div class="weui-cells">
+                <form id="exhentai">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Gallery</label></div>
+                        <div class="weui-cell__bd">
+                            <input name="gallery" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Account</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="account" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Password</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="password" class="weui-input" type="password" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Save path</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="savePath" class="weui-input" type="text" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Proxy</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input name="proxy" class="weui-input" type="text" placeholder="http://127.0.0.1:1080" />
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <span class="weui-btn weui-btn_mini weui-btn_primary hl" onclick="submitTask('exhentai');">Download</span>
+                            <span class="weui-btn weui-btn_mini weui-btn_warn hl" onclick="cancelTask('exhentai');">Cancel</span>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">
+                                Progress</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <span id="exhentaiProgress">0 / 0</span>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea id="exhentaiConsole" class="weui-textarea" readonly rows="8" style="font-size: 12px;"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
