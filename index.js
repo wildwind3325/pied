@@ -189,13 +189,13 @@ var startPixivTask = async function (param) {
       return a - b;
     });
 
+    await app.evaluate((progress) => {
+      $('#pixivProgress').text(progress);
+    }, '0 / ' + list.length);
     for (let i = 0; i < list.length; i++) {
       if (cancelFlags['pixiv']) {
         break;
       }
-      await app.evaluate((progress) => {
-        $('#pixivProgress').text(progress);
-      }, i + ' / ' + list.length);
       res = await api.webGet({
         url: 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + list[i],
         cookie: data.pixiv.cookie,
@@ -252,14 +252,14 @@ var startPixivTask = async function (param) {
         }
       } else {
         if (!fs.existsSync(path.join(param.savePath, list[i] + '.zip'))) {
+          await app.evaluate(progress => {
+            $('#pixivProgress').text(progress);
+          }, i + ' / ' + list.length + ' | 0 / ' + count);
           let mask = Math.max((count - 1).toString().length, 2);
           for (let j = 0; j < count; j++) {
             if (cancelFlags['pixiv']) {
               break;
             }
-            await app.evaluate(progress => {
-              $('#pixivProgress').text(progress);
-            }, i + ' / ' + list.length + ' | ' + j + ' / ' + count);
             res = await api.webGet({
               url: 'https://www.pixiv.net/member_illust.php?mode=manga_big&illust_id=' + list[i] + '&page=' + j,
               cookie: data.pixiv.cookie,
@@ -298,9 +298,9 @@ var startPixivTask = async function (param) {
 
     data.pixiv.proxy = param.proxy;
   } catch (error) {
-    await app.evaluate(_error => {
-      logger('pixiv', 'Error: ' + JSON.stringify(_error));
-    }, error);
+    await app.evaluate(msg => {
+      logger('pixiv', 'Error: ' + msg);
+    }, error.message);
   }
   await app.evaluate(() => {
     busyFlags['pixiv'] = false;
@@ -429,23 +429,23 @@ var startInkbunnyTask = async function (param) {
       }
     }
 
+    await app.evaluate((progress) => {
+      $('#inkbunnyProgress').text(progress);
+    }, '0 / ' + list.length);
     for (let i = 0; i < list.length; i++) {
       if (cancelFlags['inkbunny']) {
         break;
       }
-      await app.evaluate((progress) => {
-        $('#inkbunnyProgress').text(progress);
-      }, i + ' / ' + list.length);
       let cg = list[i];
+      if (cg.count > 1) {
+        await app.evaluate(progress => {
+          $('#inkbunnyProgress').text(progress);
+        }, i + ' / ' + list.length + ' | 0 / ' + cg.count);
+      }
       let mask = Math.max((cg.count - 1).toString().length, 2);
       for (let j = 0; j < cg.count; j++) {
         if (cancelFlags['inkbunny']) {
           break;
-        }
-        if (cg.count > 1) {
-          await app.evaluate(progress => {
-            $('#inkbunnyProgress').text(progress);
-          }, i + ' / ' + list.length + ' | ' + j + ' / ' + cg.count);
         }
         let url = 'https://inkbunny.net/s/' + cg.id;
         if (j > 0) {
@@ -499,9 +499,9 @@ var startInkbunnyTask = async function (param) {
 
     data.inkbunny.proxy = param.proxy;
   } catch (error) {
-    await app.evaluate(_error => {
-      logger('inkbunny', 'Error: ' + JSON.stringify(_error));
-    }, error);
+    await app.evaluate(msg => {
+      logger('inkbunny', 'Error: ' + msg);
+    }, error.message);
   }
   await app.evaluate(() => {
     busyFlags['inkbunny'] = false;
@@ -579,13 +579,13 @@ var startExhentaiTask = async function (param) {
       page++;
     }
 
+    await app.evaluate((progress) => {
+      $('#exhentaiProgress').text(progress);
+    }, '0 / ' + list.length);
     for (let i = 0; i < list.length; i++) {
       if (cancelFlags['exhentai']) {
         break;
       }
-      await app.evaluate((progress) => {
-        $('#exhentaiProgress').text(progress);
-      }, i + ' / ' + list.length);
       res = await api.webGet({
         url: list[i],
         cookie: data.exhentai.cookie,
@@ -628,9 +628,9 @@ var startExhentaiTask = async function (param) {
 
     data.exhentai.proxy = param.proxy;
   } catch (error) {
-    await app.evaluate(_error => {
-      logger('exhentai', 'Error: ' + JSON.stringify(_error));
-    }, error);
+    await app.evaluate(msg => {
+      logger('exhentai', 'Error: ' + msg);
+    }, error.message);
   }
   await app.evaluate(() => {
     busyFlags['exhentai'] = false;
