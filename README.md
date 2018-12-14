@@ -8,5 +8,5 @@
 # Usage
 * Download project if you have node.js installed on your computer, run "npm install" and "npm start".
 * Download released executable file for your platform if you don't want to install it manually.
-* For first time usage, you need to type account and password to logon to those web sites.
+* For first time use, you need to type account and password to logon to those web sites.
 * Specify user id(number for Pixiv, string for Inkbunny) or gallery address(https://exhentai.org/g/xxx/xxx/) and then enjoy!
