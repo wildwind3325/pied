@@ -1,6 +1,6 @@
 {
   "name": "pied",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "3 in 1 Downloader for Pixiv + Inkbunny + Exhentai",
   "main": "index.js",
   "scripts": {
